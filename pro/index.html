@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Form Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(() => {
+      $('#myForm').submit((event) => {
+        event.preventDefault();
+        const formData = {
+          name: $('#name').val(),
+          email: $('#email').val(),
+          phone: $('#phone').val(),
+          age: $('#age').val()
+        };
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:3000/api/data',
+          data: JSON.stringify(formData),
+          contentType: 'application/json',
+          success: (response) => {
+            console.log(response);
+            alert("Data submitted successfully!");
+            // optionally display a success message to the user
+          },
+          error: (error) => {
+            console.error(error);
+            // optionally display an error message to the user
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Form :</h1>
+  <form id="myForm" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone">
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age">
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
